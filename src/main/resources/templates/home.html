@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Your Home</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="lead">
+            <strong>Name of Event:</strong>
+            <span th:text="${event}"></span>
+        </div>
+        <div id="contents">
+            <ul>
+                <li style="list-style-type:none" v-for="information in news">
+                    <information-template
+                            v-bind:information="information"
+                            v-bind:key="information.id">
+                    </information-template>
+                </li>
+            </ul>
+        </div>
+
+
+        <script
+                src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js">
+        </script>
+        <script
+                src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js">
+        </script>
+        <script type="text/babel">
+            Vue.component('information-template', {
+                props: ['information'],
+                template: `<div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">
+                        <strong>ID: {{information.id}}, {{ information.name }}</strong>
+                    </h6>
+                    <p class="card-text">
+                        <div>
+                            {{ information.description }}
+                        </div>
+                    </p>
+                </div>
+                </div>`
+            });
+
+            var app = new Vue({
+                el: '#contents',
+                data: {
+                    news: [
+                        {
+                            id: "1",
+                            name: "Virus outbreak in China",
+                            description: "Patient zero started epidemy in Wuhan, China."
+                        },
+                        {
+                            id: "2",
+                            name: "1-st case in Poland",
+                            description: "Patient in Zielona Góra, Poland has the Virus! This God forsaken land isn't safe."
+                        }
+                    ]
+                }
+            });
+        </script>
+    </body>
+</html>
